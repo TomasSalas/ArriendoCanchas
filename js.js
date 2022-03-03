@@ -73,18 +73,21 @@ $(document).ready(function () {
                 id:id,
                 nombre:nombre,
             },success: function(data){
-                if(data == 1)
+                if(data != 2)
                 {   Swal.fire({
                     icon: 'success',
                     title: 'Arriendo Ingresado Correctamente',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     if(result.isConfirmed){
+                       var w_ = window.open("pdf.php"+data, "scrollbars=yes,resizable=yes,left=500,width=400,height=400"); 
+                        w_.focus();
                         location.reload();
                     }
                 }); 
-                }else{
-                    console.log(data);
+                }
+                else{
+                    console.log ( data);
                 } 
             }
         });

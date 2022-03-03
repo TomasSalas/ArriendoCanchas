@@ -25,25 +25,8 @@
     };  
     $sql=("INSERT INTO arriendo (id_arriendo,fecha,hora,id_usuario,estado)VALUES('$id_arriendo','$fecha','$hora','$id','$estado');");
 
-    if($conn->query($sql) === TRUE){
-        
-        $pdf = new FPDF();
-        $pdf->AddPage();
-
-        $pdf->Image('./img/logo.jpg',5,10,-200);
-        $pdf->SetFont('Arial','B','20');
-        $pdf->Cell(0,40,'Gracias por tu Reserva',0,1,'C');
-        $pdf->SetFont('Arial','','18');
-        $pdf->Cell(50,10,'Nombre Cliente: '.$nombre,0,1);
-        $pdf->Cell(50,10,'ID de su Arriendo: '. $id_arriendo,0,1);
-        $pdf->Cell(50,10,'Fecha de su Arriendo: '.$fecha,0,1);
-        $pdf->Cell(50,10,'Hora de su Arriendo: '. $horadesc,0,1); 
-
-        $pdf->Output('F','doc.pdf');
-        $pdf->Close(); 
-
-        $data = 1;
-        
+    if(mysqli_query($conn,$sql)){
+        $data = '?fecha='.$fecha.'&hora='.$horadesc.'&id='.$id_arriendo.'&nombre='.$nombre;
     }
     else {
         $data = 2;
