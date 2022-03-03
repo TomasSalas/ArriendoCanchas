@@ -62,6 +62,7 @@ $(document).ready(function () {
         let fecha = $("#list_fecha").val();
         let hora = $("#list_hora").val();
         let id = $("#txt_id").val();
+        let nombre = $("#txt_nombre").val();
         e.preventDefault();
         $.ajax({
             url: "insert.php",
@@ -69,7 +70,8 @@ $(document).ready(function () {
             data: {
                 fecha:fecha,
                 hora:hora,
-                id:id
+                id:id,
+                nombre:nombre,
             },success: function(data){
                 if(data == 1)
                 {   Swal.fire({
@@ -79,11 +81,11 @@ $(document).ready(function () {
                 }).then((result) => {
                     if(result.isConfirmed){
                         location.reload();
-                        window.open('pdf.php', '_blank')   
+                        /* window.open('pdf.php', '_blank')    */
                     }
                 }); 
                 }else{
-                    alert(data);
+                    console.log(data);
                 } 
             }
         });

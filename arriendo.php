@@ -1,16 +1,18 @@
 <?php
   include('conexion.php');
   $usuario = $_GET['usuario'];
-  $sql = ("SELECT * FROM usuario WHERE md5(nombre) = '$usuario' ");
+  $sql = ("SELECT * FROM usuario AS U WHERE md5(nombre) = '$usuario'");
   $query = $conn->query($sql);
 
 
-  $sql2 = "SELECT DATE_FORMAT(A.FECHA,'%W') AS FECHA, H.HORA_DESC , U.NOMBRE FROM ARRIENDO A JOIN USUARIO U ON U.ID = A.ID_USUARIO JOIN HORA_ARRIENDO H ON H.ID_HORA = A.HORA; ";
+  $sql2 = "SELECT DATE_FORMAT(A.FECHA,'%W') AS FECHA, H.HORA_DESC , U.NOMBRE FROM ARRIENDO A JOIN USUARIO U ON U.ID = A.ID_USUARIO JOIN HORA_ARRIENDO H ON H.ID_HORA = A.HORA  ; ";
   $query2 = $conn->query($sql2);
+
   if ($query->num_rows > 0) {
     foreach ($query as $row){
       $var = $row['correo'];
       $var2 = $row['id'];
+      $var3 = $row['nombre'];
     }
     session_start();
   } else {
@@ -80,6 +82,11 @@
       <label class="form-group">Correo Usuario</label>
       <input type="text" class="form-control" id="txt_correo" name="txt_correo" autocomplete="on" placeholder="" disabled value="<?php echo $var ?>">
       <input type="text" class="form-control" id="txt_id" name="txt_id" autocomplete="on" placeholder="" disabled value="<?php echo $var2 ?>" style="display: none;">
+      
+    </div>
+    <div class="form-group">
+      <label class="form-group">Nombre Usuario</label>
+      <input type="text" class="form-control" id="txt_nombre" name="txt_nombre" autocomplete="on" placeholder="" disabled value="<?php echo $var3 ?>">
     </div>
     <div class="form-group">
       <button type="button" class="btn btn-primary btn_arriendo" id="btn_arriendo" name="btn_arriendo" >Realizar Arriendo</button>
