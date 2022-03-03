@@ -81,7 +81,6 @@ $(document).ready(function () {
                 }).then((result) => {
                     if(result.isConfirmed){
                         location.reload();
-                        /* window.open('pdf.php', '_blank')    */
                     }
                 }); 
                 }else{
