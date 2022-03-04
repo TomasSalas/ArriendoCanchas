@@ -73,7 +73,10 @@
       <label class="form-group">Ingrese Fecha Arriendo</label>
       <input type="date" class="form-control list_fecha" id="list_fecha" name="list_fecha">
     </div>
-
+    <div class="form-group">
+      <label class="form-group">Ingrese Cancha</label>
+      <select class="custom-select" id="list_cancha" name="list_cancha"></select>
+    </div>
     <div class="form-group">
       <label class="form-group">Ingrese Hora Arriendo</label>
       <select class="custom-select" id="list_hora" name="list_hora"></select>

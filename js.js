@@ -35,32 +35,35 @@ $(document).ready(function () {
     /* Select Fecha --> Mostrar Horas Disponibles */
     $("#list_fecha").change(function() {
         let fecha = $("#list_fecha").val();
-/*         const dias = [
-            'lunes',
-            'martes',
-            'miércoles',
-            'jueves',
-            'viernes',
-            'sábado',
-            'domingo',
-          ];
-          const numeroDia = new Date(fecha).getDay();
-        const nombreDia = dias[numeroDia];
-        alert(nombreDia); */
+        $.ajax({
+            url: "cancha.php",
+            type: "POST",
+            data: {fecha:fecha},
+            success: function (data){
+                $("#list_cancha").html(data); 
+            }
+        });
+    });
+
+    $("#list_cancha").change(function() {
+        let fecha = $("#list_fecha").val();
+        let cancha = $("#list_cancha").val();
         $.ajax({
             url: "consulta.php",
             type: "POST",
-            data: {fecha:fecha},
+            data: {fecha:fecha , cancha:cancha},
             success: function (data){
                 $("#list_hora").html(data); 
             }
         });
     });
 
+
     /* Insertar Registros */
     $('#btn_arriendo').click(function(e){
         let fecha = $("#list_fecha").val();
         let hora = $("#list_hora").val();
+        let cancha = $("#list_cancha").val();
         let id = $("#txt_id").val();
         let nombre = $("#txt_nombre").val();
         e.preventDefault();
@@ -70,6 +73,7 @@ $(document).ready(function () {
             data: {
                 fecha:fecha,
                 hora:hora,
+                cancha:cancha,
                 id:id,
                 nombre:nombre,
             },success: function(data){
