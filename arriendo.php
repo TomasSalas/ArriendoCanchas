@@ -5,7 +5,12 @@
   $query = $conn->query($sql);
 
 
-  $sql2 = "SELECT DATE_FORMAT(A.FECHA,'%W') AS FECHA, H.HORA_DESC , U.NOMBRE FROM ARRIENDO A JOIN USUARIO U ON U.ID = A.ID_USUARIO JOIN HORA_ARRIENDO H ON H.ID_HORA = A.HORA  ; ";
+  $sql2 = 
+  "SELECT DATE_FORMAT(A.FECHA,'%W') AS FECHA, H.HORA_DESC , U.NOMBRE , C.CANCHA_DESC FROM ARRIENDO A 
+  JOIN USUARIO U ON U.ID = A.ID_USUARIO 
+  JOIN HORA_ARRIENDO H ON H.ID_HORA = A.HORA
+  JOIN CANCHA C ON C.ID_CANCHA = A.CANCHA  
+  WHERE A.FECHA = CURDATE();";
   $query2 = $conn->query($sql2);
 
   if ($query->num_rows > 0) {
@@ -46,19 +51,16 @@
 <body>
 
 </body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg fixed-top sticky-navigation navbar-light bg-light">
+  <a class="navbar-brand" href="#">Aconcagua Sport</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Arriendo<span class="sr-only">(current)</span></a>
-      </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Listado De Arriendo</a>
+        <a class="nav-link page-scroll" href="#arriendo">Arriendo</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -67,8 +69,8 @@
   </div>
 </nav>
 
-<div class="container justify-content-center p-4">
-  <form>
+<div class="container justify-content-center p-4" id="arriendo">
+  <form class="p-5">
     <div class="form-group">
       <label class="form-group">Ingrese Fecha Arriendo</label>
       <input type="date" class="form-control list_fecha" id="list_fecha" name="list_fecha">
@@ -101,9 +103,11 @@
   <table class="table table-striped table">
     <thead>
       <tr>
+      <th>Usuario</th>
+        <th>Cancha</th>
         <th>Fecha</th>
         <th>Hora</th>
-        <th>Usuario</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -111,6 +115,8 @@
          foreach ($query2 as $row) {
       ?>
       <tr>
+          <td> <?php echo $row["NOMBRE"] ?> </td>
+          <td> <?php echo $row["CANCHA_DESC"] ?> </td>
           <td> 
           <?php
             $fecha = $row["FECHA"];
@@ -123,7 +129,6 @@
           ?> 
           </td>
           <td> <?php echo $row["HORA_DESC"] ?> </td>
-          <td> <?php echo $row["NOMBRE"] ?> </td>
           <?php 
         } 
       ?>

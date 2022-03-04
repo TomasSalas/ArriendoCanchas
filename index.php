@@ -22,11 +22,11 @@
     <link rel="stylesheet" href="css.css">
     <script src="js.js"></script>
 
-    <title>Proyecto</title>
+    <title>Arriendo De Canchas</title>
 </head>
 
 <body>
-    <div class="d-flex justify-content-center p-4">
+    <div class="d-flex justify-content-center p-5">
     <div class="card p-4" align="center">
         <div class="card-body">
             <h5 class="card-title">Login</h5>

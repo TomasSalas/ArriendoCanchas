@@ -84,7 +84,7 @@ $(document).ready(function () {
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     if(result.isConfirmed){
-                       var w_ = window.open("pdf.php"+data, "scrollbars=yes,resizable=yes,left=500,width=400,height=400"); 
+                        var w_ = window.open("pdf.php"+data, "scrollbars=yes,resizable=yes,left=500,width=400,height=400"); 
                         w_.focus();
                         location.reload();
                     }
