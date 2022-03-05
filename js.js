@@ -23,6 +23,7 @@ $(document).ready(function () {
                 }).then((result) => {
                     if(result.isConfirmed){
                         window.location.href = "arriendo.php?usuario="+md5(data.result['nombre']);
+                        location.reload();
                     }
                 }); 
                 }else{
