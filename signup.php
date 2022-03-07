@@ -34,16 +34,16 @@
             <p class="card-text">Ingrese los datos solicitados</p>
             <form>
                 <div class="form-group has-validation">
-                    <input type="text" class="form-control" id="txtnombre" name="txtnombre" placeholder="Nombre Usuario">
+                    <input type="text" class="form-control" id="txtnombre" name="txtnombre" placeholder="Nombre Usuario" required="required">
                 </div>
                 <div class="form-group has-validation">
-                    <input type="email" class="form-control" id="txtcorreo" name="txtcorreo" placeholder="Correo Electronico">
+                    <input type="email" class="form-control" id="txtcorreo" name="txtcorreo" placeholder="Correo Electronico" required="required">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="txtclave" name="txtclave" autocomplete="on" placeholder="Contraseña" required>
+                    <input type="password" class="form-control" id="txtclave" name="txtclave" autocomplete="on" placeholder="Contraseña" required="required" >
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="txtclave2" name="txtclave2" autocomplete="on" placeholder="Confirme Contraseña" required>
+                    <input type="password" class="form-control" id="txtclave2" name="txtclave2" autocomplete="on" placeholder="Confirme Contraseña" required="required">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success" id="btn_registrar" name="btn_registrar">Registrarse</button>

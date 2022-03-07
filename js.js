@@ -98,58 +98,48 @@ $(document).ready(function () {
         let nombre = $('#txtnombre').val();
         let correo = $('#txtcorreo').val();
         let clave = md5($('#txtclave2').val());
-        e.preventDefault();
-        $.ajax({
-            url: "registracion.php",
-            type: "POST",
-            cache: false,
-            data: {
-                nombre:nombre,
-                correo:correo,
-                clave:clave
-            },success:function (data){
-                if(data == 1)
-                {   Swal.fire({
-                    icon: 'success',
-                    title: 'Registrado de manera correcta',
-                    confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    if(result.isConfirmed){
-                        window.location.href = "index.php";
-                    }
-                }); 
-                }else{
-                    alert("GG")
-                } 
-            }
 
-        })
-
+       
+            
+            e.preventDefault();
+            $.ajax({
+                url: "registracion.php",
+                type: "POST",
+                cache: false,
+                data: {
+                    nombre:nombre,
+                    correo:correo,
+                    clave:clave
+                },success:function (data){
+                    if(data == 1)
+                    {   Swal.fire({
+                        icon: 'success',
+                        title: 'Registrado de manera correcta',
+                        confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+                        if(result.isConfirmed){
+                            window.location.href = "index.php";
+                        }
+                    }); 
+                    }else{
+                        alert("GG")
+                    } 
+                }
+            }) 
+    
     });
     /* Keyup -> Keydown Validar Clave*/
     $('#txtclave2').keyup(function(){
         let clave1 = md5($('#txtclave').val());
         if(clave1 == md5($('#txtclave2').val())){
             document.getElementById("txtclave2").style.borderColor = "green";
-            $("#btn_registrar").prop('disabled', false);
+            
         }else{
             document.getElementById("txtclave2").style.borderColor = "red";
             $("#btn_registrar").prop('disabled', true);
         }
     })
-    $('#txtclave2').keydown(function(){
-        let clave1 = md5($('#txtclave').val());
-        if(clave1 == md5($('#txtclave2').val())){
-            document.getElementById("txtclave2").style.borderColor = "green";
-            $("#btn_registrar").prop('disabled', false);
-        }else{
-            document.getElementById("txtclave2").style.borderColor = "red";
-            $("#btn_registrar").prop('disabled', true);
-        }
-    })
-    $("#txtclave2").click(function() {
-        $("#btn_registrar").prop('disabled', true);
-    });
+   
     /* Keyup -> Validar Correo*/
     $("#txtcorreo").keyup(function() {
         let correo = $('#txtcorreo').val();
@@ -160,11 +150,15 @@ $(document).ready(function () {
             success: function (data){
                 if(data == 2){
                     document.getElementById("txtcorreo").style.borderColor = "red";
+                    document.getElementById("txtcorreo").style.focus = "red";
+                    $("#btn_registrar").prop('disabled', true);
                 }else{
                     document.getElementById("txtcorreo").style.borderColor = "green";
+                    $("#btn_registrar").prop('disabled', false);
                 }
             }
         });
     });
+    /* Validación Registro */
     
 });
