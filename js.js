@@ -23,7 +23,6 @@ $(document).ready(function () {
                 }).then((result) => {
                     if(result.isConfirmed){
                         window.location.href = "arriendo.php?usuario="+md5(data.result['nombre']);
-                        location.reload();
                     }
                 }); 
                 }else{
@@ -32,8 +31,7 @@ $(document).ready(function () {
             }
         })
     });
-
-    /* Select Fecha --> Mostrar Horas Disponibles */
+    /* Select Fecha */
     $("#list_fecha").change(function() {
         let fecha = $("#list_fecha").val();
         $.ajax({
@@ -45,7 +43,7 @@ $(document).ready(function () {
             }
         });
     });
-
+    /* Select Cancha --> Mostrar Horas Disponibles */
     $("#list_cancha").change(function() {
         let fecha = $("#list_fecha").val();
         let cancha = $("#list_cancha").val();
@@ -58,8 +56,6 @@ $(document).ready(function () {
             }
         });
     });
-
-
     /* Insertar Registros */
     $('#btn_arriendo').click(function(e){
         let fecha = $("#list_fecha").val();
@@ -97,4 +93,78 @@ $(document).ready(function () {
             }
         });
     });
+    /* Boton Registro */
+    $('#btn_registrar').click(function(e) {
+        let nombre = $('#txtnombre').val();
+        let correo = $('#txtcorreo').val();
+        let clave = md5($('#txtclave2').val());
+        e.preventDefault();
+        $.ajax({
+            url: "registracion.php",
+            type: "POST",
+            cache: false,
+            data: {
+                nombre:nombre,
+                correo:correo,
+                clave:clave
+            },success:function (data){
+                if(data == 1)
+                {   Swal.fire({
+                    icon: 'success',
+                    title: 'Registrado de manera correcta',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        window.location.href = "index.php";
+                    }
+                }); 
+                }else{
+                    alert("GG")
+                } 
+            }
+
+        })
+
+    });
+    /* Keyup -> Keydown Validar Clave*/
+    $('#txtclave2').keyup(function(){
+        let clave1 = md5($('#txtclave').val());
+        if(clave1 == md5($('#txtclave2').val())){
+            document.getElementById("txtclave2").style.borderColor = "green";
+            $("#btn_registrar").prop('disabled', false);
+        }else{
+            document.getElementById("txtclave2").style.borderColor = "red";
+            $("#btn_registrar").prop('disabled', true);
+        }
+    })
+    $('#txtclave2').keydown(function(){
+        let clave1 = md5($('#txtclave').val());
+        if(clave1 == md5($('#txtclave2').val())){
+            document.getElementById("txtclave2").style.borderColor = "green";
+            $("#btn_registrar").prop('disabled', false);
+        }else{
+            document.getElementById("txtclave2").style.borderColor = "red";
+            $("#btn_registrar").prop('disabled', true);
+        }
+    })
+    $("#txtclave2").click(function() {
+        $("#btn_registrar").prop('disabled', true);
+    });
+    /* Keyup -> Validar Correo*/
+    $("#txtcorreo").keyup(function() {
+        let correo = $('#txtcorreo').val();
+        $.ajax({
+            url : "validarcorreo.php",
+            type: "POST",
+            data: {correo:correo},
+            success: function (data){
+                if(data == 2){
+                    document.getElementById("txtcorreo").style.borderColor = "red";
+                }else{
+                    document.getElementById("txtcorreo").style.borderColor = "green";
+                }
+            }
+        });
+    });
+    
 });

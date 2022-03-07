@@ -29,21 +29,24 @@
     <div class="d-flex justify-content-center p-5">
     <div class="card p-4" align="center">
         <div class="card-body">
-            <img class="mb-4" src="img/user.png" alt="" width="72" height="72">
-            <h5 class="card-title">Login</h5>
-            <p class="card-text">Ingrese su usuario y contraseña</p>
+            <img class="mb-4" src="img/registration.png" alt="" width="72" height="72">
+            <h5 class="card-title">Registración</h5>
+            <p class="card-text">Ingrese los datos solicitados</p>
             <form>
                 <div class="form-group has-validation">
-                    <input type="email" class="form-control" id="txtusuario" name="txtusuario" placeholder="Correo Electronico">
+                    <input type="text" class="form-control" id="txtnombre" name="txtnombre" placeholder="Nombre Usuario">
+                </div>
+                <div class="form-group has-validation">
+                    <input type="email" class="form-control" id="txtcorreo" name="txtcorreo" placeholder="Correo Electronico">
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control" id="txtclave" name="txtclave" autocomplete="on" placeholder="Contraseña" required>
                 </div>
                 <div class="form-group">
-                    <a href="signup.php">Registrate con nosotros </a>
+                    <input type="password" class="form-control" id="txtclave2" name="txtclave2" autocomplete="on" placeholder="Confirme Contraseña" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success" id="btn_iniciar_sesion" name="btn_iniciar_sesion">Iniciar Sesión</button>
+                    <button type="submit" class="btn btn-success" id="btn_registrar" name="btn_registrar">Registrarse</button>
                 </div>
             </form>
         </div>
