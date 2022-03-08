@@ -1,9 +1,9 @@
 <?php
     include "conexion.php";
  
-    $usuario = $_POST['usuario'];
-    $clave = $_POST['clave'];
-    $sql = ("SELECT correo,nombre,tipo_usuario FROM usuario WHERE correo = '$usuario' and clave = '$clave'");
+    $id = $_POST['id'];
+    
+    $sql = ("SELECT * FROM arriendo WHERE id_arriendo = '$id' ");
     $query = $conn->query($sql);
 
     if($query->num_rows > 0){
