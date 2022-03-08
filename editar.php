@@ -3,7 +3,12 @@
  
     $id = $_POST['id'];
     
-    $sql = ("SELECT * FROM arriendo WHERE id_arriendo = '$id' ");
+    $sql = (
+    "SELECT A.ID_ARRIENDO , A.FECHA, C.ID_CANCHA, C.CANCHA_DESC , U.NOMBRE 
+    FROM ARRIENDO A 
+    JOIN CANCHA C ON C.ID_CANCHA = A.CANCHA 
+    JOIN USUARIO U ON U.ID = A.ID_USUARIO 
+    WHERE A.ID_ARRIENDO = '$id' ");
     $query = $conn->query($sql);
 
     if($query->num_rows > 0){

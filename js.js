@@ -187,7 +187,10 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if(data.status == "ok"){
-                    $("#txt_idarriendo_modal").val(data.result.id_arriendo);
+                    $("#txt_idarriendo_modal").val(data.result.ID_ARRIENDO);
+                    let cancha = data.result.ID_CANCHA;
+                    $("#list_cancha_modal").prop('selectedIndex', cancha-1);
+                    $("#list_fecha_modal").val(data.result.FECHA);
                 }
             }
         });

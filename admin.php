@@ -13,6 +13,9 @@ $sql2 =
   WHERE A.ESTADO = 1;";
 $query2 = $conn->query($sql2);
 
+$sql3 = "SELECT * FROM CANCHA";
+$query3 = $conn->query($sql3);
+
 if ($query->num_rows > 0) {
     foreach ($query as $row) {
         $var = $row['correo'];
@@ -114,7 +117,7 @@ if ($query->num_rows > 0) {
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle">Editar Arriendo</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -126,13 +129,21 @@ if ($query->num_rows > 0) {
                             </div>
                             <div class="form-group">
                                 <label class="form-group">Cancha</label>
-                                <select class="custom-select" id="list_cancha_modal" name="list_cancha_modal"></select>
+                                <select class="custom-select" id="list_cancha_modal" name="list_cancha_modal">
+                                    <?php foreach ($query3 as $row) : ?>
+                                        <option value="<?php echo $row["id_cancha"]; ?>"><?php echo $row["cancha_desc"]; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
-                            
+                            <div class="form-group">
+                                <label class="form-group">Fecha Arriendo</label>
+                                <input type="date" class="form-control list_fecha" id="list_fecha_modal" name="list_fecha_modal">
+                            </div>
+
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Guardar Cambios</button>
                         </div>
                     </div>
                 </div>
