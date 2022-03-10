@@ -1,7 +1,7 @@
 'use strict';
 $(document).ready(function () {
     /* Boton Login */
-    $('#btn_iniciar_sesion').click(function (e) {
+    $('#btn_iniciar_sesion').click(function (e){
         let usuario = $('#txtusuario').val();
         let clave = md5($('#txtclave').val());
         e.preventDefault();
@@ -37,7 +37,6 @@ $(document).ready(function () {
                             }
                         });
                     }
-                    
                 } else {
                     alert("GG")
                 }
@@ -45,7 +44,7 @@ $(document).ready(function () {
         })
     });
     /* Select Fecha */
-    $("#list_fecha").change(function () {
+    $("#list_fecha").change(function (e){
         let fecha = $("#list_fecha").val();
         $.ajax({
             url: "cancha.php",
@@ -57,7 +56,7 @@ $(document).ready(function () {
         });
     });
     /* Select Cancha --> Mostrar Horas Disponibles */
-    $("#list_cancha").change(function () {
+    $("#list_cancha").change(function (e){
         let fecha = $("#list_fecha").val();
         let cancha = $("#list_cancha").val();
         $.ajax({
@@ -70,7 +69,7 @@ $(document).ready(function () {
         });
     });
     /* Insertar Registros */
-    $('#btn_arriendo').click(function (e) {
+    $('#btn_arriendo').click(function (e){
         let fecha = $("#list_fecha").val();
         let hora = $("#list_hora").val();
         let cancha = $("#list_cancha").val();
@@ -107,7 +106,7 @@ $(document).ready(function () {
         });
     });
     /* Boton Registro */
-    $('#btn_registrar').click(function (e) {
+    $('#btn_registrar').click(function (e){
         let nombre = $('#txtnombre').val();
         let correo = $('#txtcorreo').val();
         let clave = md5($('#txtclave2').val());
@@ -138,7 +137,7 @@ $(document).ready(function () {
         })
     });
     /* Keyup -> Keydown Validar Clave*/
-    $('#txtclave2').keyup(function () {
+    $('#txtclave2').keyup(function (e){
         let clave1 = md5($('#txtclave').val());
         if (clave1 == md5($('#txtclave2').val())) {
             document.getElementById("txtclave2").style.borderColor = "green";
@@ -149,7 +148,7 @@ $(document).ready(function () {
         }
     })
     /* Keyup -> Validar Correo*/
-    $("#txtcorreo").keyup(function () {
+    $("#txtcorreo").keyup(function (e){
         let correo = $('#txtcorreo').val();
         $.ajax({
             url: "validarcorreo.php",
@@ -167,6 +166,7 @@ $(document).ready(function () {
             }
         });
     });
+    /* Nav bar --> Ocultar información */
     $('#nav_arriendo').click(function (e){
         document.getElementById("div1").style.display = "";
         document.getElementById("div2").style.display = "none";
@@ -174,7 +174,22 @@ $(document).ready(function () {
     $('#nav_usuario').click(function (e){
         document.getElementById("div1").style.display = "none";
         document.getElementById("div2").style.display = "";
+        $.ajax({
+            url: "canchas_info.php",
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                console.log(data[0]["COUNT(A.CANCHA)"]);
+                $("#cancha_1").html("TOTAL DE ARRIENDOS: "+data[0]["COUNT(A.CANCHA)"]);
+                $("#cancha_2").html("TOTAL DE ARRIENDOS: "+data[1]["COUNT(A.CANCHA)"]);
+                $("#cancha_3").html("TOTAL DE ARRIENDOS: "+data[2]["COUNT(A.CANCHA)"]);
+            }
+            
+        })
+        
     });
+    /* Boton editar registro de cancha */
     $('.btn_editar').click(function (e){
         var id = $(this).data("id");
         $.ajax({
@@ -195,6 +210,7 @@ $(document).ready(function () {
             }
         });
     });
+    /* Boton Eliminar - Cambiar estado del arriendo  */
     $('.btn_delete').click(function (e){
         var id = $(this).data("id");
         $.ajax({

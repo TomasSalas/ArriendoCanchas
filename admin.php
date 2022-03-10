@@ -1,37 +1,36 @@
 <?php
-include('conexion.php');
-$usuario = $_GET['usuario'];
-$sql = ("SELECT * FROM usuario AS U WHERE md5(nombre) = '$usuario'");
-$query = $conn->query($sql);
+    include('conexion.php');
+    $usuario = $_GET['usuario'];
+    $sql = ("SELECT * FROM usuario AS U WHERE md5(nombre) = '$usuario'");
+    $query = $conn->query($sql);
 
 
-$sql2 =
-    "SELECT A.ID_ARRIENDO, A.FECHA AS FECHA, H.HORA_DESC , U.NOMBRE , C.CANCHA_DESC FROM ARRIENDO A 
-  JOIN USUARIO U ON U.ID = A.ID_USUARIO 
-  JOIN HORA_ARRIENDO H ON H.ID_HORA = A.HORA
-  JOIN CANCHA C ON C.ID_CANCHA = A.CANCHA 
-  WHERE A.ESTADO = 1;";
-$query2 = $conn->query($sql2);
+    $sql2 =
+        "SELECT A.ID_ARRIENDO, A.FECHA AS FECHA, H.HORA_DESC , U.NOMBRE , C.CANCHA_DESC FROM ARRIENDO A 
+    JOIN USUARIO U ON U.ID = A.ID_USUARIO 
+    JOIN HORA_ARRIENDO H ON H.ID_HORA = A.HORA
+    JOIN CANCHA C ON C.ID_CANCHA = A.CANCHA 
+    WHERE A.ESTADO = 1;";
+    $query2 = $conn->query($sql2);
 
-$sql3 = "SELECT * FROM CANCHA";
-$query3 = $conn->query($sql3);
+    $sql3 = "SELECT * FROM CANCHA";
+    $query3 = $conn->query($sql3);
 
-if ($query->num_rows > 0) {
-    foreach ($query as $row) {
-        $var = $row['correo'];
-        $var2 = $row['id'];
-        $var3 = $row['nombre'];
+    if ($query->num_rows > 0) {
+        foreach ($query as $row) {
+            $var = $row['correo'];
+            $var2 = $row['id'];
+            $var3 = $row['nombre'];
+        }
+        session_start();
+    } else {
+        session_destroy();
+        header('Location: index.php');
+        exit;
     }
-    session_start();
-} else {
-    session_destroy();
-    header('Location: index.php');
-    exit;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -72,6 +71,7 @@ if ($query->num_rows > 0) {
             </form>
         </div>
     </nav>
+    <!-- Contenido -->
     <div class="d-flex justify-content-center p-5">
         <div class="p-5" id="div1" style="display:''">
             <h1> Tabla de Arriendos Generales</h1>
@@ -148,13 +148,50 @@ if ($query->num_rows > 0) {
                     </div>
                 </div>
             </div>
-            <div class="p-5" id="div2" style="display: none">
-                <h1>Hola div 2</h1>
-            </div>
+
+
 
         </div>
 
-
+        <div class="p-5" id="div2" style="display:none">
+            <div class="row">
+                <div class="card-deck">
+                    <div class="col-sm-4">
+                        <div class="card text-white bg-success">
+                            <div class="card-body">
+                                <h5 class="card-title">Cancha 1</h5>
+                                <p class="card-text" id="p_cancha1">
+                                <div id="cancha_1" name="cancha_1"> </div>
+                                </p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card text-white bg-warning">
+                            <div class="card-body w-100">
+                                <h5 class="card-title">Cancha 2</h5>
+                                <p class="card-text" id="p_cancha1">
+                                <div id="cancha_2" name="cancha_2"> </div>
+                                </p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card text-white bg-info">
+                            <div class="card-body">
+                                <h5 class="card-title">Cancha 3</h5>
+                                <p class="card-text" id="p_cancha1">
+                                <div id="cancha_3" name="cancha_3"> </div>
+                                </p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-
 </html>
